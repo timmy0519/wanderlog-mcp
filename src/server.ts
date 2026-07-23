@@ -61,6 +61,16 @@ import {
   removePlaceInputSchema,
 } from "./tools/remove-place.js";
 import {
+  movePlace,
+  movePlaceDescription,
+  movePlaceInputSchema,
+} from "./tools/move-place.js";
+import {
+  copyPlace,
+  copyPlaceDescription,
+  copyPlaceInputSchema,
+} from "./tools/copy-place.js";
+import {
   searchPlaces,
   searchPlacesDescription,
   searchPlacesInputSchema,
@@ -428,6 +438,26 @@ export function buildServer(ctx: AppContext): McpServer {
       inputSchema: removePlaceInputSchema,
     },
     requireAuth(ctx, async (args) => removePlace(ctx, args as Parameters<typeof removePlace>[1])),
+  );
+
+  server.registerTool(
+    "wanderlog_move_place",
+    {
+      title: "Move a place to another day or section (atomic, note-preserving)",
+      description: movePlaceDescription,
+      inputSchema: movePlaceInputSchema,
+    },
+    requireAuth(ctx, async (args) => movePlace(ctx, args as Parameters<typeof movePlace>[1])),
+  );
+
+  server.registerTool(
+    "wanderlog_copy_place",
+    {
+      title: "Copy a place to another day or section (keeps the original)",
+      description: copyPlaceDescription,
+      inputSchema: copyPlaceInputSchema,
+    },
+    requireAuth(ctx, async (args) => copyPlace(ctx, args as Parameters<typeof copyPlace>[1])),
   );
 
   server.registerTool(
