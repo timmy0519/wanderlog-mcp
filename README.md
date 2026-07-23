@@ -18,6 +18,7 @@ The agent calls the tools, interleaves places and notes for each day, adds hotel
 
 ## What's New (Unreleased)
 
+- `wanderlog_move_place` + `wanderlog_copy_place` — relocate or duplicate a place across days/sections in a single op. Move is atomic and carries the block's inline note, times, and photos intact (no more remove-then-re-add losing the note); copy leaves the original in place with a fresh id. Both take one of `to_day`/`to_section` plus an optional 1-based `position`.
 - `wanderlog_search_hotels` — search Wanderlog's hotel aggregator across airbnb, expedia, google, and kayak. Returns ranked offers with per-vendor price comparison and faceted filter discovery so the LLM never has to memorise Wanderlog's internal enum values.
 
 ## What's New in v0.3.1
@@ -105,6 +106,8 @@ and a ryokan in Shinjuku."
 | `wanderlog_edit_expense` | Change a budget expense's description, amount, currency, category, or date |
 | `wanderlog_annotate_place` | Update an existing place with a note, start/end time, or both |
 | `wanderlog_remove_place` | Remove a place by natural-language reference |
+| `wanderlog_move_place` | Move a place to another day/section, atomically, preserving its note and times |
+| `wanderlog_copy_place` | Copy a place to another day/section, keeping the original (fresh id) |
 | `wanderlog_update_trip_dates` | Change a trip's date range |
 | `wanderlog_rename_day` | Rename a day's heading (e.g. `"Barcelona"` → `"Arrival — Feria de Abril"`) |
 | `wanderlog_list_journal` | List journal (travelogue) stops, optionally filtered by title or date |
